@@ -1,3 +1,9 @@
+import os
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+clear_screen()
 menu = """
 
 [1] Depositar
@@ -28,6 +34,8 @@ while True:
             else:
                 saldo += deposito
                 extrato_op.append(f"DEPOSITO REALIZADO NO VALOR DE: R${deposito:.2f}")
+                clear_screen()
+
                 print(f"""
               ==========CONTA BANCARIA==========
               
@@ -40,17 +48,20 @@ while True:
                  """)
                 break
     elif opcao == 2:
-        while  LIMITE_SAQUE >= numero_saques:
+        while  numero_saques < LIMITE_SAQUE:
+                clear_screen()
                 print("========SAQUE BANCARIO==========")
                 print(f"SALDO: R${saldo:.2f}")
                 print("LIMITE POR SAQUE: R$500")
                 print("LIMITE DIARIO DE SAQUE 3")
+                clear_screen()
                 sacar =  float(input("VALOR DO SAQUE: "))
                 if sacar > saldo or sacar < 0:
                     print("NÃO EXISTE VALOR DISPONIVEL PARA SAQUE.")
                     break
                 else:
                     if sacar > limite:
+                        clear_screen()
                         print("VALOR EXCEDIDO DE SAQUE POR OPERAÇÃO:")
                         break
                     else: 
@@ -59,14 +70,16 @@ while True:
                         print("=========================")
                         print(f"SALDO: R${saldo:.2f}")
                         print(f"SAQUE REALIZADO NO VALOR DE R${sacar}")
+                        extrato_op.append(f"SALDO DISPONIVEL: R${saldo:.2f}")
+
                         numero_saques += 1
                         break
-        if numero_saques > LIMITE_SAQUE:
+        if numero_saques == LIMITE_SAQUE:
             print("LIMITE DE SAQUE EXCEDIDO.")
         else:
             print("Obrigado por usar nosso sistema!")
-                          
     elif opcao == 3:
+        clear_screen()
         print("==========EXTRATO BANCARIO============")
         for extrato in extrato_op:
             print(extrato)
@@ -76,4 +89,5 @@ while True:
     elif opcao == 4:
         break
     else:
+        clear_screen()
         print('Operação invalida , tente novamente!')
